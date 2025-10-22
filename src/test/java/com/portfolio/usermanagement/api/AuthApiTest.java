@@ -105,7 +105,7 @@ class AuthApiTest {
         .when()
             .post("/auth/register")
         .then()
-            .statusCode(400)
+            .statusCode(409)
             .body("message", containsString("Username is already taken"));
     }
 
