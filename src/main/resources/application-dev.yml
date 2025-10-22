@@ -1,0 +1,78 @@
+spring:
+  # Development-specific datasource configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/usermanagement_dev
+    username: admin
+    password: admin
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+
+  # JPA configuration for development
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        generate_statistics: false
+    hibernate:
+      ddl-auto: validate
+
+  # Flyway configuration for development
+  flyway:
+    enabled: true
+    clean-disabled: false
+    clean-on-validation-error: true
+
+  # DevTools configuration
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+    livereload:
+      enabled: true
+
+# Server configuration for development
+server:
+  port: 8080
+  error:
+    include-stacktrace: always
+
+# JWT configuration for development (weaker security for easier testing)
+jwt:
+  secret: dev-secret-key-only-for-development-do-not-use-in-production-12345678
+  expiration: 3600000 # 1 hour
+
+# Application-specific configuration for development
+app:
+  security:
+    allowed-origins: http://localhost:3000,http://localhost:4200,http://localhost:5173
+
+# Actuator configuration for development
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+# OpenAPI/Swagger configuration for development
+springdoc:
+  swagger-ui:
+    enabled: true
+
+# Logging configuration for development
+logging:
+  level:
+    root: INFO
+    com.portfolio.usermanagement: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.jdbc.core: DEBUG
+  file:
+    name: logs/user-management-dev.log

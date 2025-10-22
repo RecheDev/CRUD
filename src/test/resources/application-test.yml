@@ -1,0 +1,64 @@
+spring:
+  # Test datasource configuration (will be overridden by Testcontainers)
+  datasource:
+    url: jdbc:postgresql://localhost:5432/usermanagement_test
+    username: test
+    password: test
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+
+  # JPA configuration for tests
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+    hibernate:
+      ddl-auto: validate
+
+  # Flyway configuration for tests
+  flyway:
+    enabled: true
+    clean-disabled: false
+    clean-on-validation-error: true
+
+# Server configuration for tests
+server:
+  port: 0  # Random port for tests
+
+# JWT configuration for tests
+jwt:
+  secret: test-secret-key-for-testing-only-must-be-at-least-64-characters-long-for-security
+  expiration: 3600000 # 1 hour
+  refresh-expiration: 7200000 # 2 hours
+
+# Application-specific configuration for tests
+app:
+  security:
+    allowed-origins: http://localhost
+
+# Actuator configuration for tests
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+# OpenAPI/Swagger configuration for tests
+springdoc:
+  swagger-ui:
+    enabled: false
+  api-docs:
+    enabled: false
+
+# Logging configuration for tests
+logging:
+  level:
+    root: INFO
+    com.portfolio.usermanagement: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.hibernate.SQL: DEBUG
+    org.testcontainers: INFO
